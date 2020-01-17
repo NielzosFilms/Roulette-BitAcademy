@@ -11,7 +11,7 @@ function generateFields(){
         var table_row = document.getElementById("betting_field_table_row_"+r);
         for(var k = 1;k<=3;k++){
             number++;
-            table_row.innerHTML += "<td onclick='placeBet(this)' class='betting_field' id='betting_field_R"+r+"K"+k+"'><div class='tooltip'>"+number+"<span class='tooltiptext' id='betting_field_tooltip_R"+r+"K"+k+"'>No bets</span></div></td>";
+            table_row.innerHTML += "<td onclick='placeBet(this)' class='betting_field' id='betting_field_R"+r+"K"+k+"'><div class='tooltip'>"+number+"<span class='tooltiptext' id='betting_field_tooltip_R"+r+"K"+k+"'>0</span></div></td>";
             color_change++;
             if(color_change > 10){
                 color_change = 0;
@@ -23,18 +23,21 @@ function generateFields(){
             }else if(number == 19){
                 color_1 = "black";
                 color_2 = "red";
-            }else if(number == 36){
-                table.innerHTML += "<tr id='betting_field_table_row_"+(r+1)+"'></tr>";
-                table_row = document.getElementById("betting_field_table_row_"+(r+1));
-                for(var i = 1;i<=3;i++){
-                    table
-                    table_row.innerHTML += "<td onclick='placeBet(this)' class='betting_field' id='2_to_1_R"+r+"K"+k+"'><div class='tooltip'>2to1<span class='tooltiptext' id='betting_field_tooltip_R"+r+"K"+k+"'>No bets</span></div></td>";
-                }
             }
             if(number%2 == 0){
                 document.getElementById("betting_field_R"+r+"K"+k).style.backgroundColor = color_1;
             }else{
                 document.getElementById("betting_field_R"+r+"K"+k).style.backgroundColor = color_2;
+            }
+            if(number == 36){
+                table.innerHTML += "<tr id='betting_field_table_row_"+(r+1)+"'></tr>";
+                table_row = document.getElementById("betting_field_table_row_"+(r+1));
+                r = r+1;
+                k = 0;
+                for(var i = 1;i<=3;i++){
+                    k = k+1;
+                    table_row.innerHTML += "<td onclick='placeBet(this)' class='betting_field' id='betting_field_R"+r+"K"+k+"'><div class='tooltip'>2to1<span class='tooltiptext' id='betting_field_tooltip_R"+r+"K"+k+"'>0</span></div></td>";
+                }
             }
         }
     }  
@@ -63,5 +66,35 @@ function turn(img) {
 }
 
 function placeBet(tile){
-
+    var tile_id = tile.id;
+    var r = tile_id.substr(15, 1);
+    if(tile_id.substr(16, 1) != "K"){
+        r += tile_id.substr(16,1);
+    }
+    var k = tile_id.substr(17, 1);
+    if(tile_id.substr(16, 1) != "K"){
+        k = tile_id.substr(18,1);
+    }
+    console.log(r+" | "+k);
+    var tile_tooltip = document.getElementById('betting_field_tooltip_R'+r+'K'+k);
+    var amount = document.getElementById('amount').value;
+    var new_amount = parseInt(tile_tooltip.innerHTML, 10) + parseInt(amount);
+    if(new_amount > 1000){
+        new_amount = 1000;
+    }else if(new_amount < 0){
+        new_amount = 0;
+    }
+    tile_tooltip.innerHTML = new_amount;
+    if(tile_tooltip.innerHTML != "0"){
+        tile.style.color = "#1F85DE";
+        if(tile.style.backgroundColor == "" || tile.style.backgroundColor == "transparent" || tile.style.backgroundColor == "rgb(31, 133, 222)"){
+            tile.style.backgroundColor = "#1F85DE";
+            tile.style.color = "white";
+        }
+    }else {
+        tile.style.color = "white";
+        if(tile.style.backgroundColor == "rgb(31, 133, 222)"){
+            tile.style.backgroundColor = "transparent";
+        }
+    }
 }

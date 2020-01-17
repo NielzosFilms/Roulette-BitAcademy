@@ -10,29 +10,30 @@
             <div style="margin-left:50px;margin-top: auto;margin-bottom: auto;" class="betting_content">
                 <table id="betting_field_table" class="rotate">
                     <tr>
-                        <td id="green_0" colspan="3" class="betting_field"><img style="height: 16px;" src="img/green_0.png"></td>
+                        <td onclick='placeBet(this)' id="betting_field_R0K0" colspan="3" class="betting_field"><div class='tooltip'><img style="height: 16px;" src="img/green_0.png"><span class='tooltiptext' id='betting_field_tooltip_R0K0'>0</span></div></td>
                     </tr>
                 </table>
                 <table id="options_below">
                     <tr>
-                        <td colspan="2">1<sup>st</sup> 12</td>
-                        <td colspan="2">2<sup>nd</sup> 12</td>
-                        <td colspan="2">3<sup>rd</sup> 12</td>
+                        <td onclick='placeBet(this)' colspan="2" id="betting_field_R13K1"><div class='tooltip2'>1<sup>st</sup> 12<span class='tooltiptext2' id='betting_field_tooltip_R13K1'>0</span></div></td>
+                        <td onclick='placeBet(this)' colspan="2" id="betting_field_R13K2"><div class='tooltip2'>2<sup>nd</sup> 12<span class='tooltiptext2' id='betting_field_tooltip_R13K2'>0</span></div></td>
+                        <td onclick='placeBet(this)' colspan="2" id="betting_field_R13K3"><div class='tooltip2'>3<sup>rd</sup> 12<span class='tooltiptext2' id='betting_field_tooltip_R13K3'>0</span></div></td>
                     </tr>
                     <tr>
-                        <td>1-18</td>
-                        <td>EVEN</td>
-                        <td><img style="width: 100%;" src="img/red.png"></td>
-                        <td><img style="width: 100%;" src="img/black.png"></td>
-                        <td>ODD</td>
-                        <td>19-36</td>
+                        <td onclick='placeBet(this)' id="betting_field_R14K1"><div class='tooltip2'>1-18<span class='tooltiptext2' id='betting_field_tooltip_R14K1'>0</span></div></td>
+                        <td onclick='placeBet(this)' id="betting_field_R14K2"><div class='tooltip2'>EVEN<span class='tooltiptext2' id='betting_field_tooltip_R14K2'>0</span></div></td>
+                        <td onclick='placeBet(this)' id="betting_field_R14K3"><div class='tooltip2'><img style="width: 100%;" src="img/red.png"><span class='tooltiptext2' id='betting_field_tooltip_R14K3'>0</span></div></td>
+                        <td onclick='placeBet(this)' id="betting_field_R14K4"><div class='tooltip2'><img style="width: 100%;" src="img/black.png"><span class='tooltiptext2' id='betting_field_tooltip_R14K4'>0</span></div></td>
+                        <td onclick='placeBet(this)' id="betting_field_R14K5"><div class='tooltip2'>ODD<span class='tooltiptext2' id='betting_field_tooltip_R14K5'>0</span></div></td>
+                        <td onclick='placeBet(this)' id="betting_field_R14K6"><div class='tooltip2'>19-36<span class='tooltiptext2' id='betting_field_tooltip_R14K6'>0</span></div></td>
                     </tr>
                 </table>
             </div>
         </div>
         <div class="score_container">
-            Amount:
-            <input type="number" id="amount" step="5" value="0" min="0" max="1000">
+            Bet Amount(-1000|1000):
+            <input type="number" id="amount" step="5" value="0" min="-1000" max="1000"><br>
+            Left click a tile to place bet, right click to subtract bet.
         </div>
         <script src="script.js"></script>
     </body>
