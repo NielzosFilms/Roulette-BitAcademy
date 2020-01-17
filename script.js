@@ -41,3 +41,25 @@ function generateFields(){
         }
     }  
 }
+function turn(img) {
+    var newone = img.cloneNode(true);
+    img.parentNode.replaceChild(newone, img);
+    var num = Math.floor(Math.random() * 36) + 1;
+    var color_1 = "black";
+    var color_2 = "red";
+    if((num > 10 && num < 18) || num > 28){
+        var temp = color_1;
+        color_1 = color_2;
+        color_2 = temp;
+    }else if(num == 18){
+        color_1 = "red";
+        color_2 = "black";
+    }
+    document.getElementById('number_showcase').innerHTML = num;
+    if(num%2 == 0){
+        document.getElementById("number_showcase").style.color = color_1;
+    }else{
+        document.getElementById("number_showcase").style.color = color_2;
+    }
+
+}

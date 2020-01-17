@@ -55,3 +55,17 @@ td {
     height: 32px;
     width: 43px;
 }
+
+#number_showcase{
+    width: 100px;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 100px;
+    color: white;
+}
+
+#wheel {
+    animation:spin 2s ease-in-out 1;
+}
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
