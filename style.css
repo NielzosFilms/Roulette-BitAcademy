@@ -7,20 +7,47 @@ td {
 }
 
 .green-table{
-    background-image: linear-gradient(to right, green, lightgreen, green);
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    background-image: linear-gradient(to right, rgb(10, 136, 56), rgb(41, 243, 115), rgb(10, 136, 56));
+    border: 10px solid #461F00;
+    position: relative;
 }
 
 .rotate {
     transform: rotate(-90deg);
 }
+.rotate2 {
+    transform: rotate(90deg);
+}
 
 .betting_field {
     width: 25px;
-    height: 25px;
+    height: 20px;
     text-align: center;
 }
 
 #betting_field_table{
+    margin-top: -113px;
     margin-left: auto;
     margin-right: auto;
+}
+#betting_field_0{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 8px;
+    left: 43px;
+}
+
+#options_below{
+    margin-top: -116px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#options_below td {
+    text-align: center;
+    height: 32px;
+    width: 43px;
 }
