@@ -7,12 +7,16 @@ td {
 }
 
 .green-table{
-    width: 60%;
+    width: 75%;
     margin-left: auto;
     margin-right: auto;
     background-image: linear-gradient(to right, rgb(10, 136, 56), rgb(41, 243, 115), rgb(10, 136, 56));
     border: 10px solid #461F00;
+    border-radius: 10px;
     position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .rotate {
