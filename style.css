@@ -1,0 +1,26 @@
+table{
+    border-collapse: collapse;
+}
+td {
+    border: 1px solid white;
+    color: white;
+}
+
+.green-table{
+    background-image: linear-gradient(to right, green, lightgreen, green);
+}
+
+.rotate {
+    transform: rotate(-90deg);
+}
+
+.betting_field {
+    width: 25px;
+    height: 25px;
+    text-align: center;
+}
+
+#betting_field_table{
+    margin-left: auto;
+    margin-right: auto;
+}
