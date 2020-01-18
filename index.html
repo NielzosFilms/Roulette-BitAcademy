@@ -6,7 +6,7 @@
     <body>
         <div class="green-table">
             <h1 id="number_showcase"></h1>
-            <img style="height: 250px;" id="wheel" onclick="turn(this)" src="img/wheel.png">
+            <img style="height: 250px;" id="wheel" onclick="turn()" src="img/wheel.png">
             <div style="margin-left:50px;margin-top: auto;margin-bottom: auto;" class="betting_content">
                 <table id="betting_field_table" class="rotate">
                     <tr>
@@ -31,9 +31,30 @@
             </div>
         </div>
         <div class="score_container">
-            Bet Amount(-1000|1000):
-            <input type="number" id="amount" step="5" value="0" min="-1000" max="1000"><br>
-            Left click a tile to place bet, right click to subtract bet.
+            <table class="score_table">
+                <tr>
+                    <td>
+                        <p>Placed bets:</p>
+                        <textarea style="height: 50%;font-size: 20px;" rows="5" cols="50" readonly="true" id="placed_bets">
+                        </textarea>
+                    </td>
+                    <td>
+                        <p>Your money:</p>
+                        <h1 id="money_container"></h1>
+                        Bet Amount(-1000|1000):<br>
+                        Left click a tile to place bet, left click with negative value to subtract bet.<br>
+                        <input type="number" id="amount" step="5" value="0" min="-1000" max="1000"><br><br>
+                        
+                        <button onclick="turn()">Turn wheel</button><br>
+                    </td>
+                    <td>
+                        <p>Previous rolled numbers:</p>
+                        <textarea style="height: 50%;font-size: 20px;" rows="5" cols="50" readonly="true" id="rolled_numbers">
+                        </textarea>
+                    </td>
+                </tr>
+            </table>
+            
         </div>
         <script src="script.js"></script>
     </body>

@@ -1,4 +1,8 @@
 generateFields();
+var money = 1000;
+var placed_bets = [];
+var previous_numbers = [];
+document.getElementById('money_container').innerHTML = money;
 
 function generateFields(){
     var table = document.getElementById('betting_field_table');
@@ -43,10 +47,19 @@ function generateFields(){
     }  
 }
 
-function turn(img) {
+function turn() {
+    var img = document.getElementById('wheel');
     var newone = img.cloneNode(true);
     img.parentNode.replaceChild(newone, img);
-    var num = Math.floor(Math.random() * 36) + 1;
+    var num = Math.floor(Math.random() * 37);
+    previous_numbers.unshift(num);
+    previous_numbers.splice(5, previous_numbers.length-5);
+    var rolled_numbers = document.getElementById('rolled_numbers');
+    rolled_numbers.innerHTML = "";
+    for(var i = 0;i<previous_numbers.length;i++){
+        console.log(previous_numbers[i]);
+        rolled_numbers.innerHTML += previous_numbers[i] + "\n";
+    }
     var color_1 = "black";
     var color_2 = "red";
     if((num > 10 && num < 18) || num > 28){
@@ -63,6 +76,9 @@ function turn(img) {
     }else{
         document.getElementById("number_showcase").style.color = color_2;
     }
+    if(num == 0){
+        document.getElementById("number_showcase").style.color = "green";
+    }
 }
 
 function placeBet(tile){
@@ -78,23 +94,83 @@ function placeBet(tile){
     console.log(r+" | "+k);
     var tile_tooltip = document.getElementById('betting_field_tooltip_R'+r+'K'+k);
     var amount = document.getElementById('amount').value;
-    var new_amount = parseInt(tile_tooltip.innerHTML, 10) + parseInt(amount);
-    if(new_amount > 1000){
-        new_amount = 1000;
-    }else if(new_amount < 0){
-        new_amount = 0;
+    if(parseInt(tile_tooltip.innerHTML, 10) + parseInt(amount) > 1000){
+        amount = Math.abs(parseInt(tile_tooltip.innerHTML, 10)-1000);
+    }else if(parseInt(tile_tooltip.innerHTML, 10) + parseInt(amount) < 0){
+        amount = -(parseInt(tile_tooltip.innerHTML, 10));
     }
-    tile_tooltip.innerHTML = new_amount;
-    if(tile_tooltip.innerHTML != "0"){
-        tile.style.color = "#1F85DE";
-        if(tile.style.backgroundColor == "" || tile.style.backgroundColor == "transparent" || tile.style.backgroundColor == "rgb(31, 133, 222)"){
-            tile.style.backgroundColor = "#1F85DE";
-            tile.style.color = "white";
+    var new_amount = parseInt(tile_tooltip.innerHTML, 10) + parseInt(amount);
+    var temp_money = money;
+    var clicked_existing = false;
+    for(var i = 0;i<placed_bets.length;i++){
+        var bet = placed_bets[i];
+        if(bet[0] == tile_id){
+            clicked_existing = true;
         }
-    }else {
-        tile.style.color = "white";
-        if(tile.style.backgroundColor == "rgb(31, 133, 222)"){
-            tile.style.backgroundColor = "transparent";
+    }
+    if(placed_bets.length < 5 || amount < 0 || clicked_existing){
+        money = money-parseInt(amount);
+        if(new_amount > 1000){
+            money = temp_money;
+            new_amount = 1000;
+        }else if(new_amount < 0){
+            money = temp_money;
+            new_amount = 0;
+        }
+
+        var exists = false;
+        for(var i = 0;i<placed_bets.length;i++){
+            var bet = placed_bets[i];
+            if(bet[0] == tile_id){
+                if(new_amount == 0){
+                    placed_bets.splice(i, 1);
+                }else{
+                    bet[1] = new_amount;
+                }
+                exists = true;
+            }
+        }
+        if(!exists && amount != 0) placed_bets.push(new Array(tile_id, amount));
+        var bets = document.getElementById('placed_bets');
+        bets.innerHTML = "";
+        for(var i = 0;i<placed_bets.length;i++){
+            var value = document.getElementById(placed_bets[i][0]).innerHTML;
+            var old_value = "";
+            for(var j = 0;j<value.length;j++){
+                var temp = value.charAt(j);
+                if(temp == ">"){
+                    for(var l = j;l<value.length;l++){
+                        var temp2 = value.charAt(l);
+                        if(temp2 == "<"){
+                            old_value = value;
+                            value = value.substr(j+1, (l-j)-1);
+                            if(value == ""){
+                                if(old_value.indexOf("red") != -1){
+                                    value = "Red";
+                                }else if(old_value.indexOf("black") != -1){
+                                    value = "Black";
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            bets.innerHTML += value +", "+ placed_bets[i][1] + "\n";
+        }
+        document.getElementById('money_container').innerHTML = money;
+        tile_tooltip.innerHTML = new_amount;
+        if(tile_tooltip.innerHTML != "0"){
+            tile.style.color = "#1F85DE";
+            if(tile.style.backgroundColor == "" || tile.style.backgroundColor == "transparent" || tile.style.backgroundColor == "rgb(31, 133, 222)"){
+                tile.style.backgroundColor = "#1F85DE";
+                tile.style.color = "white";
+            }
+        }else {
+            tile.style.color = "white";
+            if(tile.style.backgroundColor == "rgb(31, 133, 222)"){
+                tile.style.backgroundColor = "transparent";
+            }
         }
     }
 }
