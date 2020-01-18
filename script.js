@@ -149,6 +149,8 @@ function placeBet(tile){
                                     value = "Red";
                                 }else if(old_value.indexOf("black") != -1){
                                     value = "Black";
+                                }else if(old_value.indexOf("green") != -1){
+                                    value = "0";
                                 }
                             }
                             break;
