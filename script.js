@@ -52,8 +52,7 @@ function turn() {
     var img = document.getElementById('wheel');
     var newone = img.cloneNode(true);
     img.parentNode.replaceChild(newone, img);
-    //var num = Math.floor(Math.random() * 37);
-    var num = 5;
+    var num = Math.floor(Math.random() * 37);
     previous_numbers.unshift(num);
     previous_numbers.splice(5, previous_numbers.length-5);
     var rolled_numbers = document.getElementById('rolled_numbers');
