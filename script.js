@@ -95,7 +95,6 @@ function placeBet(tile){
     if(tile_id.substr(16, 1) != "K"){
         k = tile_id.substr(18,1);
     }
-    console.log(r+" | "+k);
     var tile_tooltip = document.getElementById('betting_field_tooltip_R'+r+'K'+k);
     var amount = document.getElementById('amount').value;
     if(parseInt(tile_tooltip.innerHTML, 10) + parseInt(amount) > 1000){
@@ -177,12 +176,16 @@ function checkWinCondition(num, color){
                                 value = "0";
                             }
                         }
+                        if(old_value.indexOf("2to1") != -1){
+                            var k = old_value.substr(81, 1);
+                            value = "2to1_" + k;
+                        }
                         break;
                     }
                 }
             }
         }
-        if(isNaN(value) && (value != "1st 12" && value != "2nd 12" && value != "3rd 12")){
+        if(isNaN(value) && (value != "1st 12" && value != "2nd 12" && value != "3rd 12") && (value != "2to1_1" && value != "2to1_2" && value != "2to1_3")){
             if((value == "EVEN" && parseInt(num)%2 == 0) || (value == "ODD" && parseInt(num)%2 != 0) || (value == "Red" && color == "red") || (value == "Black" && color == "black") || (value == "1-18" && parseInt(num) > 0 && parseInt(num) <= 18) || (value == "19-36" && parseInt(num) > 18 && parseInt(num) <= 36) ){
                 won_money += placed_bets[i][1]*2;
                 wins.push(value + ", " + placed_bets[i][1]*2);
@@ -196,6 +199,35 @@ function checkWinCondition(num, color){
             }else{
                 won_money -= placed_bets[i][1]*3;
             }   
+        }else if(value == "2to1_1" || value == "2to1_2" || value == "2to1_3"){
+            var success = false;
+            if(value == "2to1_1"){
+                for(var j = 1;j<=34;j+=3){
+                    if(parseInt(num) == j){
+                        success = true;
+                    }
+                }
+            }
+            if(value == "2to1_2"){
+                for(var j = 2;j<=35;j+=3){
+                    if(parseInt(num) == j){
+                        success = true;
+                    }
+                }
+            }
+            if(value == "2to1_3"){
+                for(var j = 3;j<=36;j+=3){
+                    if(parseInt(num) == j){
+                        success = true;
+                    }
+                }
+            }
+            if(success){
+                won_money += placed_bets[i][1]*3;
+                wins.push(value + ", " + placed_bets[i][1]*3);
+            }else {
+                won_money -= placed_bets[i][1]*3;
+            }
         }else {
             if(parseInt(num) == parseInt(value)){
                 won_money += placed_bets[i][1]*36;
@@ -251,6 +283,10 @@ function setBets(){
                             }else if(old_value.indexOf("green") != -1){
                                 value = "0";
                             }
+                        }
+                        if(old_value.indexOf("2to1") != -1){
+                            var k = old_value.substr(81, 1);
+                            value = "2to1_" + k;
                         }
                         break;
                     }
