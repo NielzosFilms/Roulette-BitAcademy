@@ -188,16 +188,12 @@ function checkWinCondition(num, color){
             if((value == "EVEN" && parseInt(num)%2 == 0) || (value == "ODD" && parseInt(num)%2 != 0) || (value == "Red" && color == "red") || (value == "Black" && color == "black") || (value == "1-18" && parseInt(num) > 0 && parseInt(num) <= 18) || (value == "19-36" && parseInt(num) > 18 && parseInt(num) <= 36) ){
                 won_money += placed_bets[i][1]*2;
                 wins.push(value + ", " + placed_bets[i][1]*2);
-            }else {
-                won_money -= placed_bets[i][1]*2;
             }
         }else if(value == "1st 12" || value == "2nd 12" || value == "3rd 12") {
             if((value == "1st 12" && parseInt(num) > 0 && parseInt(num) <= 12) || (value == "2nd 12" && parseInt(num) > 12 && parseInt(num) <= 24) || (value == "3rd 12" && parseInt(num) > 24 && parseInt(num) <= 36)){
                 won_money += placed_bets[i][1]*3;
                 wins.push(value + ", " + placed_bets[i][1]*3);
-            }else{
-                won_money -= placed_bets[i][1]*3;
-            }   
+            }  
         }else if(value == "2to1_1" || value == "2to1_2" || value == "2to1_3"){
             var success = false;
             if(value == "2to1_1"){
@@ -224,15 +220,11 @@ function checkWinCondition(num, color){
             if(success){
                 won_money += placed_bets[i][1]*3;
                 wins.push(value + ", " + placed_bets[i][1]*3);
-            }else {
-                won_money -= placed_bets[i][1]*3;
             }
         }else {
             if(parseInt(num) == parseInt(value)){
                 won_money += placed_bets[i][1]*36;
                 wins.push(value + ", " + placed_bets[i][1]*36);
-            }else {
-                won_money -= placed_bets[i][1]*36;
             }
         }
         resetBet(placed_bets[i][0]);
